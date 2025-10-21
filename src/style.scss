@@ -1,1 +1,24 @@
-body { background-color: #bc5858; }
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 60px auto;
+}
+
+.task-input {
+  max-width: 500px;
+  width: 100%;
+}
+
+.task-input label {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
