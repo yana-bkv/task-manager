@@ -1,7 +1,7 @@
 import type {RepositoryInterface} from "./repositoryInterface";
 import type {Task} from "../models/Task";
 
-export class LocalStorageRepository implements RepositoryInterface {
+export default class LocalStorageRepository implements RepositoryInterface {
     create(taskTitle :string) {
         const tasks = this.jsonToParse();
         const isCreated = tasks.some((task: Task)  => task.title === taskTitle);
