@@ -2,13 +2,14 @@ import type {RepositoryInterface} from "./repositoryInterface";
 import type {Task} from "../models/Task";
 
 export class LocalStorageRepository implements RepositoryInterface {
-    create(newTask: Task) {
+    create(taskTitle :string) {
         const tasks = this.jsonToParse();
-        const isCreated = tasks.some((task: Task)  => task.id === newTask.id);
+        const isCreated = tasks.some((task: Task)  => task.title === taskTitle);
         if (isCreated) {
             return
         }
-        tasks.push(newTask);
+        const newId = this.createId(tasks);
+        tasks.push({id: newId, title: taskTitle});
         this.jsonToStringify(tasks);
     }
     findById(id: number): Task | undefined {
@@ -18,12 +19,14 @@ export class LocalStorageRepository implements RepositoryInterface {
     findAll(): Task[] {
        return this.jsonToParse() || [];
     }
-    update(id: number, title: string) {
+    update(id: number, newTitle: string) {
         const tasks = this.jsonToParse();
         const taskToUpdate = tasks.find(task => task.id === id);
-        if (taskToUpdate) {
-            taskToUpdate.title = title;
+        if (!taskToUpdate) {
+            return
         }
+        taskToUpdate.title = newTitle;
+
         this.jsonToStringify(tasks);
     }
     delete(id: number) {
@@ -38,5 +41,10 @@ export class LocalStorageRepository implements RepositoryInterface {
 
     protected jsonToStringify(tasks :Task[]) {
         localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    protected createId(tasks :Task[]) :number {
+        const maxId = tasks.length > 0 ? Math.max(...tasks.map(task => task.id)) : 0;
+        return maxId + 1;
     }
 }

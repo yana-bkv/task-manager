@@ -24,8 +24,26 @@ main {
 }
 
 .task {
-  background-color: #614a4a;
-  color: #fbf3f3;
+  background-color: #e8e3e3;
+  color: #000000;
+  font-weight: 500;
+  border: 2px solid #000000;
   padding: 10px;
   border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskTitle {
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.taskTitle:hover, .taskTitle:focus {
+  background-color: #fff;
+  outline: none;
+  border-radius: 5px;
 }
