@@ -12,16 +12,24 @@ export class LocalStorageRepository implements RepositoryInterface {
         this.jsonToStringify(tasks);
     }
     findById(id: number): Task | undefined {
-        return undefined;
+        const tasks = this.jsonToParse()
+        return tasks.find(task => task.id === id);
     }
     findAll(): Task[] {
-        return [];
+       return this.jsonToParse() || [];
     }
-    update(id: number) {
-
+    update(id: number, title: string) {
+        const tasks = this.jsonToParse();
+        const taskToUpdate = tasks.find(task => task.id === id);
+        if (taskToUpdate) {
+            taskToUpdate.title = title;
+        }
+        this.jsonToStringify(tasks);
     }
     delete(id: number) {
-
+        let tasks = this.jsonToParse();
+        tasks = tasks.filter(task => task.id !== id); // Мы возвращаем массив без элемента который указан в ид
+        this.jsonToStringify(tasks);
     }
 
     protected jsonToParse() :Task[] {

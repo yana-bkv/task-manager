@@ -4,6 +4,6 @@ export interface RepositoryInterface {
     create(task: Task): void;
     findById(id: number): Task | undefined;
     findAll(): Task[];
-    update(id: number): void;
+    update(id: number, title: string): void;
     delete(id: number): void;
 }
