@@ -11,11 +11,21 @@ taskManagement.create(
         created_at: new Date
     }
 )
+taskManagement.create(
+    {
+        id: 1,
+        title: "Task 1",
+        description: "",
+        status: false,
+        created_at: new Date
+    }
+)
+
 
 taskManagement.create(
     {
-        id: 2,
-        title: "Task 1",
+        id: 3,
+        title: "Task 3",
         description: "",
         status: false,
         created_at: new Date

@@ -3,13 +3,13 @@ import type {Task} from "../models/Task";
 
 export class LocalStorageRepository implements RepositoryInterface {
     create(newTask: Task) {
-        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        const tasks = this.jsonToParse();
         const isCreated = tasks.some((task: Task)  => task.id === newTask.id);
         if (isCreated) {
             return
         }
         tasks.push(newTask);
-        localStorage.setItem('tasks', JSON.stringify(tasks));
+        this.jsonToStringify(tasks);
     }
     findById(id: number): Task | undefined {
         return undefined;
@@ -22,5 +22,13 @@ export class LocalStorageRepository implements RepositoryInterface {
     }
     delete(id: number) {
 
+    }
+
+    protected jsonToParse() :Task[] {
+        return JSON.parse(localStorage.getItem('tasks') || '[]');
+    }
+
+    protected jsonToStringify(tasks :Task[]) {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
     }
 }
