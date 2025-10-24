@@ -1,5 +1,5 @@
 import LocalStorageRepository from './repositories/localStorageRepository.js';
-import TaskService from "./service/TaskService.js";
+import TaskService from './service/TaskService.js';
 
 const tasksContainer = document.getElementById('tasksContainer');
 
