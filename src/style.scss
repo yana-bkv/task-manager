@@ -12,11 +12,6 @@ main {
   margin: 60px auto;
 }
 
-.task-input {
-  max-width: 500px;
-  width: 100%;
-}
-
 .task-input label {
   display: flex;
   flex-direction: row;
@@ -40,10 +35,13 @@ main {
   padding: 5px 10px;
   background-color: transparent;
   border: none;
+    &:focus {
+      background-color: #fff;
+      outline: none;
+      border-radius: 5px;
+  }
 }
 
-.taskTitle:hover, .taskTitle:focus {
-  background-color: #fff;
-  outline: none;
-  border-radius: 5px;
+.hidden {
+  display: none;
 }

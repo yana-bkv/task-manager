@@ -1,22 +1,45 @@
-export default function TaskComponent(title: string, deleteTask: () => void) :HTMLDivElement {
+interface TaskComponentArgs {
+    title: string
+    deleteTask: () => void
+    updateTask: (newTitle: string) => void
+}
+
+export default function TaskComponent({title, deleteTask, updateTask}: TaskComponentArgs) :HTMLDivElement {
     const deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('btn');
-    deleteBtn.classList.add('btn-danger');
+    deleteBtn.className = 'btn btn-danger';
     deleteBtn.type = 'button';
     deleteBtn.textContent = 'Delete'
     deleteBtn.addEventListener('click', () => {
         deleteTask();
     })
 
-    const span = document.createElement('span');
-    span.textContent = title;
+    const updateBtn = document.createElement('button');
+    updateBtn.className = 'btn btn-success hidden';
+    updateBtn.type = 'button';
+    updateBtn.textContent = 'Update'
+    updateBtn.addEventListener('click', () => {
+        updateTask(input.value);
+    })
+
+    const input = document.createElement('input') as HTMLInputElement;
+    input.className = 'taskTitle';
+    input.value = title;
+    input.addEventListener('focus', () => {
+        updateBtn.classList.remove('hidden');
+        deleteBtn.classList.add('hidden');
+    });
+    input.addEventListener('focusout', () => {
+        setTimeout(()=> {
+            updateBtn.classList.add('hidden');
+            deleteBtn.classList.remove('hidden');
+        }, 100)
+    });
 
     const alertDiv = document.createElement('div');
-    alertDiv.classList.add('container-md');
-    alertDiv.classList.add('mb-3');
-    alertDiv.classList.add('task');
+    alertDiv.className = 'container-md mb-3 task';
 
-    alertDiv.append(span);
+    alertDiv.append(input);
+    alertDiv.append(updateBtn);
     alertDiv.append(deleteBtn);
 
     return alertDiv

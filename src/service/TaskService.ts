@@ -28,9 +28,15 @@ export default class TaskService {
 
       let allTasksHTML :HTMLDivElement[] = [];
 
-      tasksStorage.forEach((task) => {
-        allTasksHTML.push(TaskComponent(task.title, () => this.deleteTask(task.id)));
-      });
+        tasksStorage.forEach((task) => {
+            allTasksHTML.push(
+                TaskComponent({
+                    title: task.title,
+                    deleteTask: () => this.deleteTask(task.id),
+                    updateTask: (newTitle: string) => this.updateTask(task.id, newTitle),
+                })
+            );
+        });
 
       this.taskContainer.innerHTML = '';
       this.taskContainer.append(...allTasksHTML);
@@ -57,4 +63,8 @@ export default class TaskService {
     this.renderTasks();
   }
 
+  updateTask(id: number, newTitle: string) {
+    this.repository.update(id, newTitle);
+    this.renderTasks();
+  }
 }
