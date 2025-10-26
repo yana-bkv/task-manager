@@ -1,75 +1,60 @@
-import type { RepositoryInterface as TaskRepositoryInterface } from '../repositories/repositoryInterface';
-// import TaskComponent from '../components/TaskComponent';
+import type {
+    RepositoryInterface,
+    RepositoryInterface as TaskRepositoryInterface
+} from '../repositories/repositoryInterface';
+import TaskComponent from '../components/TaskComponent.js';
 
 export default class TaskService {
-  private taskContainer: HTMLElement | null;
+  private taskContainer: HTMLElement;
   private repository: TaskRepositoryInterface;
+  private taskInput: HTMLInputElement;
+  private taskAddBtn: HTMLElement;
 
-  constructor(
-    taskContainer: HTMLElement | null,
-    repository: TaskRepositoryInterface,
-  ) {
+    constructor(
+        taskContainer: HTMLElement,
+        repository: RepositoryInterface,
+        taskInput: HTMLInputElement,
+        taskAddBtn: HTMLElement,
+    ) {
     this.taskContainer = taskContainer;
     this.repository = repository;
+    this.taskInput = taskInput;
+    this.taskAddBtn = taskAddBtn;
   }
 
   renderTasks() {
     if (this.taskContainer) {
       const tasksStorage = this.repository.findAll();
 
-      let allTasksHTML = '';
+      let allTasksHTML :HTMLDivElement[] = [];
 
       tasksStorage.forEach((task) => {
-        allTasksHTML += `<div class="container-md mb-3 task">${task.title}</div>`;
+        allTasksHTML.push(TaskComponent(task.title, () => this.deleteTask(task.id)));
       });
 
-      this.taskContainer.innerHTML = allTasksHTML;
+      this.taskContainer.innerHTML = '';
+      this.taskContainer.append(...allTasksHTML);
     }
   }
 
-  // CREATE
-  // createTask() {
-  //     const addBtn = document.getElementById('addButton');
-  //     const input = document.getElementById('taskTitle') as HTMLInputElement;
-  //
-  //     addBtn?.addEventListener('click', function(e) {
-  //         e.preventDefault();
-  //
-  //         const taskTitle :string  = input.value;
-  //         if (!taskTitle) {
-  //             return
-  //         }
-  //         this.repository.create(taskTitle);
-  //         input.value = '';
-  //
-  //         renderTasks();
-  //     })
-  //
-  // }
-  // SHOW ALL
+  createAddTaskEvent() {
+      if (this.taskAddBtn) {
+          this.taskAddBtn.addEventListener('click', () => {
+              const newTaskTitle = this.taskInput?.value?.trim();
+              if (newTaskTitle) {
+                  this.repository.create(newTaskTitle)
+              }
+              this.taskInput.value = '';
+              this.renderTasks();
+          })
+      }
+  }
 
-  // showTasks() {
-  //
-  //     tasksStorage.forEach(task=>{
-  //         const taskElement = document.createElement('div');
-  //         const taskTitle = document.createElement('input');
-  //
-  //         taskElement.classList.add('container-md');
-  //         taskElement.classList.add('mb-3');
-  //         taskElement.classList.add('task');
-  //         taskTitle.classList.add('taskTitle');
-  //         taskTitle.id = `taskTitle${task.id}`;
-  //
-  //         const deleteBtn = deleteTask(task.id);
-  //         const updateBtn = updateTask(task.id);
-  //
-  //         taskTitle.value = task.title;
-  //         taskElement?.append(taskTitle);
-  //         taskElement?.append(updateBtn);
-  //         taskElement?.append(deleteBtn);
-  //         this.taskContainer?.append(taskElement)
-  //     })
-  //
+  deleteTask(id: number) {
+    this.repository.delete(id);
+    this.renderTasks();
+  }
+
   // }
   //
   // // UPDATE
