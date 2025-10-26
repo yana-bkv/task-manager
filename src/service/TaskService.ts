@@ -5,16 +5,16 @@ import type {
 import TaskComponent from '../components/TaskComponent.js';
 
 export default class TaskService {
-  private taskContainer: HTMLElement;
+  private taskContainer: HTMLElement | null;
   private repository: TaskRepositoryInterface;
-  private taskInput: HTMLInputElement;
-  private taskAddBtn: HTMLElement;
+  private taskInput: HTMLInputElement | null;
+  private taskAddBtn: HTMLElement | null;
 
     constructor(
-        taskContainer: HTMLElement,
+        taskContainer: HTMLElement | null,
         repository: RepositoryInterface,
-        taskInput: HTMLInputElement,
-        taskAddBtn: HTMLElement,
+        taskInput: HTMLInputElement | null,
+        taskAddBtn: HTMLElement | null,
     ) {
     this.taskContainer = taskContainer;
     this.repository = repository;
@@ -44,7 +44,9 @@ export default class TaskService {
               if (newTaskTitle) {
                   this.repository.create(newTaskTitle)
               }
-              this.taskInput.value = '';
+              if (this.taskInput) {
+                  this.taskInput.value = '';
+              }
               this.renderTasks();
           })
       }
@@ -55,48 +57,4 @@ export default class TaskService {
     this.renderTasks();
   }
 
-  // }
-  //
-  // // UPDATE
-  // updateTask(id: number) {
-  //     const updateBtn = document.createElement('button');
-  //
-  //     updateBtn.textContent = 'Update';
-  //     updateBtn.classList.add('btn');
-  //     updateBtn.classList.add('btn-success');
-  //
-  //     updateBtn.addEventListener('click', (e) => {
-  //         e.preventDefault()
-  //         const updatedInput = document.getElementById('taskTitle'+id) as HTMLInputElement;
-  //         const newTitle = updatedInput?.value;
-  //
-  //         if (!newTitle) {
-  //             alert('title cannot be empty');
-  //             renderTasks();
-  //             return;
-  //         }
-  //
-  //         taskManagement.update(id, newTitle);
-  //         renderTasks();
-  //     })
-  //
-  //     return updateBtn;
-  // }
-  //
-  //
-  // // DELETE
-  // deleteTask(id: number) {
-  //     const deleteBtn = document.createElement('button');
-  //
-  //     deleteBtn.textContent = 'Delete';
-  //     deleteBtn.classList.add('btn');
-  //     deleteBtn.classList.add('btn-danger');
-  //
-  //     deleteBtn.addEventListener('click', () => {
-  //         taskManagement.delete(id);
-  //         renderTasks();
-  //     })
-  //
-  //     return deleteBtn;
-  // }
 }

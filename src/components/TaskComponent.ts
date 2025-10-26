@@ -1,5 +1,4 @@
 export default function TaskComponent(title: string, deleteTask: () => void) :HTMLDivElement {
-
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('btn');
     deleteBtn.classList.add('btn-danger');

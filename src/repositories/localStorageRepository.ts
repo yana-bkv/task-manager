@@ -12,7 +12,7 @@ export default class LocalStorageRepository implements RepositoryInterface {
     tasks.push({ id: newId, title: taskTitle });
     this.jsonToStringify(tasks);
   }
-  findById(id: number): Task | undefined {
+  getById(id: number): Task | undefined {
     const tasks = this.jsonToParse();
     return tasks.find((task) => task.id === id);
   }
