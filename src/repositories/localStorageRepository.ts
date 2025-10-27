@@ -41,11 +41,7 @@ export default class LocalStorageRepository implements RepositoryInterface {
       if (!taskToUpdate) {
           return;
       }
-      if (!isDone) {
-          taskToUpdate.isDone = true;
-      } else {
-          taskToUpdate.isDone = false;
-      }
+      taskToUpdate.isDone = !isDone;
 
       this.jsonToStringify(tasks);
   }
