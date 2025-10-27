@@ -38,19 +38,19 @@ project/
 ```
 ## 💻 Installation
 1.	Clone the repository
-\`\`\`bash
+```bash
 git clone <your-repo-url>
 cd <your-project-folder>
-\`\`\`
+```
 2.	Install dependencies
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 # 🚀 Usage
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 This will
 
