@@ -48,7 +48,7 @@ export default class LocalStorageRepository implements RepositoryInterface {
 
     delete(id: number) {
     let tasks = this.jsonToParse();
-    tasks = tasks.filter((task) => task.id !== id); // Мы возвращаем массив без элемента который указан в ид
+    tasks = tasks.filter((task) => task.id !== id);
     this.jsonToStringify(tasks);
   }
 

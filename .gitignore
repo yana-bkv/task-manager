@@ -1,0 +1,14 @@
+# IDE
+.idea/
+
+# Node
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+
+# Environment
+.env
