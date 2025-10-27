@@ -1,12 +1,14 @@
 import LocalStorageRepository from './repositories/localStorageRepository.js';
 import TaskService from './service/TaskService.js';
 
-const tasksContainer = document.getElementById('tasksContainer');
+const currentTasksContainer = document.getElementById('currentTasksContainer');
 const taskInput  = document.getElementById('taskInput') as HTMLInputElement;
 const taskAddBtn = document.getElementById('taskAddBtn');
+const doneTasksContainer = document.getElementById('doneTasksContainer');
 
 const localStorageTaskRepository = new LocalStorageRepository();
-const taskService = new TaskService(tasksContainer, localStorageTaskRepository, taskInput, taskAddBtn);
+const taskService = new TaskService(currentTasksContainer, localStorageTaskRepository, taskInput, taskAddBtn, doneTasksContainer);
 
-taskService.renderTasks();
+taskService.renderCurrentTasks();
+taskService.renderDoneTasks();
 taskService.createAddTaskEvent();

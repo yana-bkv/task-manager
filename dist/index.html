@@ -9,19 +9,21 @@
 </head>
 <body>
 
-	<main>
-		<h1 class="container-md mb-5">Task Manager</h1>
+	<main class="container-md">
+		<h1 class="mb-5">Task Manager</h1>
 
-		<div class="container-md task-input">
+		<div class="task-input">
 			<label for="taskInput" class="mb-3">
 				<input type="text" class="form-control" id="taskInput" placeholder="Enter task name">
 				<button type="button" class="btn btn-primary" id="taskAddBtn">Add</button>
 			</label>
 		</div>
-		<div class="tasks container-md">
-			<h2>List of tasks: </h2>
-			<div id="tasksContainer">
-			</div>
+
+		<h2>Current tasks: </h2>
+		<div id="currentTasksContainer">
+		</div>
+		<h2>Done tasks: </h2>
+		<div id="doneTasksContainer">
 		</div>
 	</main>
 

@@ -5,26 +5,29 @@ import type {
 import TaskComponent from '../components/TaskComponent.js';
 
 export default class TaskService {
-  private taskContainer: HTMLElement | null;
+  private currentTasksContainer: HTMLElement | null;
   private repository: TaskRepositoryInterface;
   private taskInput: HTMLInputElement | null;
   private taskAddBtn: HTMLElement | null;
+  private doneTasksContainer: HTMLElement | null;
 
     constructor(
-        taskContainer: HTMLElement | null,
+        currentTasksContainer: HTMLElement | null,
         repository: RepositoryInterface,
         taskInput: HTMLInputElement | null,
         taskAddBtn: HTMLElement | null,
+        doneTasksContainer: HTMLElement | null,
     ) {
-    this.taskContainer = taskContainer;
+    this.currentTasksContainer = currentTasksContainer;
     this.repository = repository;
     this.taskInput = taskInput;
     this.taskAddBtn = taskAddBtn;
+    this.doneTasksContainer = doneTasksContainer;
   }
 
-  renderTasks() {
-    if (this.taskContainer) {
-      const tasksStorage = this.repository.findAll();
+  renderCurrentTasks() {
+    if (this.currentTasksContainer) {
+      const tasksStorage = this.repository.getCurrentTasks();
 
       let allTasksHTML :HTMLDivElement[] = [];
 
@@ -34,14 +37,45 @@ export default class TaskService {
                     title: task.title,
                     deleteTask: () => this.deleteTask(task.id),
                     updateTask: (newTitle: string) => this.updateTask(task.id, newTitle),
+                    status: task.isDone,
                 })
             );
         });
 
-      this.taskContainer.innerHTML = '';
-      this.taskContainer.append(...allTasksHTML);
+      if (tasksStorage.length > 0) {
+          this.currentTasksContainer.innerHTML = '';
+          this.currentTasksContainer.append(...allTasksHTML);
+      } else {
+          this.currentTasksContainer.innerHTML = 'No tasks';
+      }
     }
   }
+
+    renderDoneTasks() {
+        if (this.doneTasksContainer) {
+            const tasksStorage = this.repository.getDoneTasks();
+
+            let allTasksHTML :HTMLDivElement[] = [];
+
+            tasksStorage.forEach((task) => {
+                allTasksHTML.push(
+                    TaskComponent({
+                        title: task.title,
+                        deleteTask: () => this.deleteTask(task.id),
+                        updateTask: (newTitle: string) => this.updateTask(task.id, newTitle),
+                        status: task.isDone,
+                    })
+                );
+            });
+
+            this.doneTasksContainer.innerHTML = '';
+            if (allTasksHTML.length > 0) {
+                this.doneTasksContainer.append(...allTasksHTML);
+            } else {
+                this.doneTasksContainer.innerHTML = 'No tasks';
+            }
+        }
+    }
 
   createAddTaskEvent() {
       if (this.taskAddBtn) {
@@ -53,18 +87,21 @@ export default class TaskService {
               if (this.taskInput) {
                   this.taskInput.value = '';
               }
-              this.renderTasks();
+              this.renderCurrentTasks();
+              this.renderDoneTasks();
           })
       }
   }
 
   deleteTask(id: number) {
     this.repository.delete(id);
-    this.renderTasks();
+    this.renderCurrentTasks();
+    this.renderDoneTasks();
   }
 
   updateTask(id: number, newTitle: string) {
     this.repository.update(id, newTitle);
-    this.renderTasks();
+    this.renderCurrentTasks();
+    this.renderDoneTasks();
   }
 }

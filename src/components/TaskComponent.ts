@@ -2,9 +2,10 @@ interface TaskComponentArgs {
     title: string
     deleteTask: () => void
     updateTask: (newTitle: string) => void
+    status: boolean
 }
 
-export default function TaskComponent({title, deleteTask, updateTask}: TaskComponentArgs) :HTMLDivElement {
+export default function TaskComponent({title, deleteTask, updateTask, status}: TaskComponentArgs) :HTMLDivElement {
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'btn btn-danger';
     deleteBtn.type = 'button';
@@ -36,7 +37,7 @@ export default function TaskComponent({title, deleteTask, updateTask}: TaskCompo
     });
 
     const alertDiv = document.createElement('div');
-    alertDiv.className = 'container-md mb-3 task';
+    alertDiv.className = `container-md mb-3 alert alert-${status ? 'success' : 'dark'} task`;
 
     alertDiv.append(input);
     alertDiv.append(updateBtn);

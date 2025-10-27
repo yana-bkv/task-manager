@@ -9,15 +9,21 @@ export default class LocalStorageRepository implements RepositoryInterface {
       return;
     }
     const newId = this.createId(tasks);
-    tasks.push({ id: newId, title: taskTitle });
+    tasks.push({ id: newId, title: taskTitle, isDone: false });
     this.jsonToStringify(tasks);
   }
   getById(id: number): Task | undefined {
     const tasks = this.jsonToParse();
     return tasks.find((task) => task.id === id);
   }
-  findAll(): Task[] {
+  getAll(): Task[] {
     return this.jsonToParse() || [];
+  }
+  getCurrentTasks(): Task[] {
+      return this.jsonToParse().filter((task) =>  !task.isDone) || [];
+  }
+  getDoneTasks(): Task[] {
+      return this.jsonToParse().filter((task) => task.isDone) || [];
   }
   update(id: number, newTitle: string) {
     const tasks = this.jsonToParse();
