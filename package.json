@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && npm run build:sass",
+    "build": "tsc",
     "watch:ts": "tsc --watch",
+    "build:sass": "sass src/:dist/css",
     "watch:sass": "sass src/:dist/css --watch",
     "lint": "eslint \"src/**/*.{js,ts}\"",
     "lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",

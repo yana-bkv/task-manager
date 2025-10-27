@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: 🎨 Compile SASS
-        run: npm run watch:sass -- --no-watch  # one-time compile
+        run: npm run build:sass
 
       - name: 📤 Upload build output
         uses: actions/upload-pages-artifact@v3
