@@ -3,9 +3,10 @@ interface TaskComponentArgs {
     deleteTask: () => void
     updateTask: (newTitle: string) => void
     status: boolean
+    updateStatus: () => void;
 }
 
-export default function TaskComponent({title, deleteTask, updateTask, status}: TaskComponentArgs) :HTMLDivElement {
+export default function TaskComponent({title, deleteTask, updateTask, status, updateStatus}: TaskComponentArgs) :HTMLDivElement {
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'btn btn-danger';
     deleteBtn.type = 'button';
@@ -22,6 +23,23 @@ export default function TaskComponent({title, deleteTask, updateTask, status}: T
         updateTask(input.value);
     })
 
+    const doneBtn = document.createElement('button');
+    doneBtn.className = 'btn btn-success';
+    doneBtn.type = 'button';
+    doneBtn.textContent = 'Make done'
+    doneBtn.addEventListener('click', () => {
+        updateStatus();
+    })
+
+    const makeTaskBackBtn = document.createElement('button');
+    makeTaskBackBtn.className = 'btn btn-warning';
+    makeTaskBackBtn.type = 'button';
+    makeTaskBackBtn.textContent = 'Return back'
+    makeTaskBackBtn.addEventListener('click', () => {
+        updateStatus();
+    })
+
+
     const input = document.createElement('input') as HTMLInputElement;
     input.className = 'taskTitle';
     input.value = title;
@@ -36,12 +54,22 @@ export default function TaskComponent({title, deleteTask, updateTask, status}: T
         }, 100)
     });
 
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `container-md mb-3 alert alert-${status ? 'success' : 'dark'} task`;
+    if (status) {
+        doneBtn.classList.add('hidden');
+        makeTaskBackBtn.classList.remove('hidden');
+    } else {
+        doneBtn.classList.remove('hidden');
+        makeTaskBackBtn.classList.add('hidden');
+    }
 
-    alertDiv.append(input);
-    alertDiv.append(updateBtn);
-    alertDiv.append(deleteBtn);
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `container-md mb-3 alert alert-${status ? 'success' : 'dark'} task-container`;
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'task-button-container';
+
+    buttonContainer.append(doneBtn, makeTaskBackBtn, updateBtn, deleteBtn);
+    alertDiv.append(input, buttonContainer);
 
     return alertDiv
 }

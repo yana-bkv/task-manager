@@ -6,7 +6,6 @@
 main {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   flex-direction: column;
   max-width: 1000px;
   margin: 60px auto;
@@ -18,10 +17,11 @@ main {
   gap: 10px;
 }
 
-.task {
+.task-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
 .taskTitle {
@@ -33,6 +33,11 @@ main {
       outline: none;
       border-radius: 5px;
   }
+}
+
+.task-button-container {
+  display: flex;
+  gap: 10px;
 }
 
 .hidden {

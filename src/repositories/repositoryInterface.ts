@@ -6,6 +6,7 @@ export interface RepositoryInterface {
   getAll(): Task[];
   getCurrentTasks(): Task[];
   getDoneTasks(): Task[];
-  update(id: number, title: string): void;
+  updateTitle(id: number, title: string): void;
+  updateStatus(id: number, isDone: boolean): void;
   delete(id: number): void;
 }

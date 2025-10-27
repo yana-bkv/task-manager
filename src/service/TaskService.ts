@@ -38,6 +38,7 @@ export default class TaskService {
                     deleteTask: () => this.deleteTask(task.id),
                     updateTask: (newTitle: string) => this.updateTask(task.id, newTitle),
                     status: task.isDone,
+                    updateStatus: () => this.updateTaskStatus(task.id, task.isDone),
                 })
             );
         });
@@ -64,6 +65,7 @@ export default class TaskService {
                         deleteTask: () => this.deleteTask(task.id),
                         updateTask: (newTitle: string) => this.updateTask(task.id, newTitle),
                         status: task.isDone,
+                        updateStatus: () => this.updateTaskStatus(task.id, task.isDone),
                     })
                 );
             });
@@ -100,8 +102,14 @@ export default class TaskService {
   }
 
   updateTask(id: number, newTitle: string) {
-    this.repository.update(id, newTitle);
+    this.repository.updateTitle(id, newTitle);
     this.renderCurrentTasks();
     this.renderDoneTasks();
+  }
+
+  updateTaskStatus(id: number, isDone: boolean) {
+        this.repository.updateStatus(id, isDone);
+        this.renderCurrentTasks();
+        this.renderDoneTasks();
   }
 }

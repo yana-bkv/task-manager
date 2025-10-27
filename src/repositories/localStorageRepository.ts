@@ -25,7 +25,7 @@ export default class LocalStorageRepository implements RepositoryInterface {
   getDoneTasks(): Task[] {
       return this.jsonToParse().filter((task) => task.isDone) || [];
   }
-  update(id: number, newTitle: string) {
+  updateTitle(id: number, newTitle: string) {
     const tasks = this.jsonToParse();
     const taskToUpdate = tasks.find((task) => task.id === id);
     if (!taskToUpdate) {
@@ -35,7 +35,22 @@ export default class LocalStorageRepository implements RepositoryInterface {
 
     this.jsonToStringify(tasks);
   }
-  delete(id: number) {
+  updateStatus(id: number, isDone: boolean) {
+      const tasks = this.jsonToParse();
+      const taskToUpdate = tasks.find((task) => task.id === id);
+      if (!taskToUpdate) {
+          return;
+      }
+      if (!isDone) {
+          taskToUpdate.isDone = true;
+      } else {
+          taskToUpdate.isDone = false;
+      }
+
+      this.jsonToStringify(tasks);
+  }
+
+    delete(id: number) {
     let tasks = this.jsonToParse();
     tasks = tasks.filter((task) => task.id !== id); // Мы возвращаем массив без элемента который указан в ид
     this.jsonToStringify(tasks);
