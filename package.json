@@ -2,10 +2,9 @@
   "name": "projects",
   "version": "1.0.0",
   "description": "Basic task manager",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build:old": "tsc",
     "watch:ts": "tsc --watch",
     "build:sass": "sass src/:dist/css",
     "watch:sass": "sass src/:dist/css --watch",
@@ -13,7 +12,9 @@
     "lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
     "start": "lite-server",
-    "dev": "concurrently \"npm run watch:ts\" \"npm run watch:sass\" \"lite-server\""
+    "dev": "parcel src/index.html --port 3000",
+    "build": "parcel build src/index.html",
+    "dev:old": "concurrently \"npm run watch:ts\" \"npm run watch:sass\" \"lite-server\""
   },
   "husky": {
     "hooks": {
@@ -34,7 +35,9 @@
   "homepage": "https://github.com/yana-bkv/task-manager#readme",
   "devDependencies": {
     "@eslint/js": "^9.38.0",
+    "@parcel/transformer-sass": "^2.16.1",
     "@types/eslint": "^9.6.1",
+    "buffer": "^6.0.3",
     "concurrently": "^9.2.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
@@ -42,7 +45,7 @@
     "globals": "^16.4.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
-    "lite-server": "^2.6.1",
+    "parcel": "^2.16.1",
     "prettier": "^3.6.2",
     "sass": "^1.93.2",
     "ts-node": "^10.9.2",
@@ -50,6 +53,9 @@
     "typescript-eslint": "^8.46.2"
   },
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "@types/cors": "^2.8.19",
+    "axios": "^1.13.2",
+    "bootstrap": "^5.3.8",
+    "cors": "^2.8.5"
   }
 }

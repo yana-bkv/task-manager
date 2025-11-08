@@ -1,19 +1,19 @@
 import type {
-    RepositoryInterface,
-    RepositoryInterface as TaskRepositoryInterface
+    MongoDBTaskRepositoryInterface,
 } from '../repositories/repositoryInterface';
 import TaskComponent from '../components/TaskComponent.js';
+import MongoDBTaskRepository from "../repositories/MongoDBTaskRepository.js";
 
 export default class TaskService {
   private currentTasksContainer: HTMLElement | null;
-  private repository: TaskRepositoryInterface;
+  private repository: MongoDBTaskRepository;
   private taskInput: HTMLInputElement | null;
   private taskAddBtn: HTMLElement | null;
   private doneTasksContainer: HTMLElement | null;
 
     constructor(
         currentTasksContainer: HTMLElement | null,
-        repository: RepositoryInterface,
+        repository: MongoDBTaskRepositoryInterface,
         taskInput: HTMLInputElement | null,
         taskAddBtn: HTMLElement | null,
         doneTasksContainer: HTMLElement | null,
@@ -25,9 +25,9 @@ export default class TaskService {
     this.doneTasksContainer = doneTasksContainer;
   }
 
-  renderCurrentTasks() {
+  async renderCurrentTasks() {
     if (this.currentTasksContainer) {
-      const tasksStorage = this.repository.getCurrentTasks();
+      const tasksStorage = await this.repository.getCurrentTasks();
 
       let allTasksHTML :HTMLDivElement[] = [];
 
@@ -52,9 +52,9 @@ export default class TaskService {
     }
   }
 
-    renderDoneTasks() {
+    async renderDoneTasks() {
         if (this.doneTasksContainer) {
-            const tasksStorage = this.repository.getDoneTasks();
+            const tasksStorage = await this.repository.getDoneTasks();
 
             let allTasksHTML :HTMLDivElement[] = [];
 
@@ -81,35 +81,35 @@ export default class TaskService {
 
   createAddTaskEvent() {
       if (this.taskAddBtn) {
-          this.taskAddBtn.addEventListener('click', () => {
+          this.taskAddBtn.addEventListener('click', async () => {
               const newTaskTitle = this.taskInput?.value?.trim();
               if (newTaskTitle) {
-                  this.repository.create(newTaskTitle)
+                 await this.repository.create(newTaskTitle)
               }
               if (this.taskInput) {
                   this.taskInput.value = '';
               }
-              this.renderCurrentTasks();
-              this.renderDoneTasks();
+              await this.renderCurrentTasks();
+              await this.renderDoneTasks();
           })
       }
   }
 
-  deleteTask(id: number) {
-    this.repository.delete(id);
-    this.renderCurrentTasks();
-    this.renderDoneTasks();
+  async deleteTask(id: number) {
+      await this.repository.delete(id);
+      await this.renderCurrentTasks();
+      await this.renderDoneTasks();
   }
 
-  updateTask(id: number, newTitle: string) {
-    this.repository.updateTitle(id, newTitle);
-    this.renderCurrentTasks();
-    this.renderDoneTasks();
+  async updateTask(id: number, newTitle: string) {
+      await this.repository.updateTitle(id, newTitle);
+      await this.renderCurrentTasks();
+      await this.renderDoneTasks();
   }
 
-  updateTaskStatus(id: number, isDone: boolean) {
-        this.repository.updateStatus(id, isDone);
-        this.renderCurrentTasks();
-        this.renderDoneTasks();
+  async updateTaskStatus(id: number, isDone: boolean) {
+      await  this.repository.updateStatus(id, isDone);
+      await  this.renderCurrentTasks();
+      await  this.renderDoneTasks();
   }
 }
