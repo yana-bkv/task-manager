@@ -10,6 +10,7 @@ and refreshes the browser whenever you make changes. Everything is handled with 
 ## Main Features
 	•	🧠 TypeScript support with auto compilation
 	•	🎨 SASS/SCSS styling with watch mode
+	•	💎 Bootstrap integration for responsive and modern UI
 	•	🌍 Lite Server for live reloading
 	•	🔄 Concurrently runs multiple scripts at once
 	•	🧹 ESLint + Prettier for clean and consistent code
