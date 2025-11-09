@@ -1,6 +1,6 @@
 import type { Task } from '../models/Task';
 
-export interface RepositoryInterface {
+export interface LocalStorageRepositoryInterface {
   create(title: string): void;
   getById(id: number): Task | undefined;
   getAll(): Task[];

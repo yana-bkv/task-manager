@@ -2,6 +2,7 @@
 import TaskService from './service/TaskService.js';
 import MongoDBTaskRepository from "./repositories/MongoDBTaskRepository.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import LocalStorageRepository from "./repositories/localStorageRepository";
 
 const currentTasksContainer = document.getElementById('currentTasksContainer');
 const taskInput  = document.getElementById('taskInput') as HTMLInputElement;
@@ -13,15 +14,6 @@ const mongodbTaskRep = new MongoDBTaskRepository();
 
 const taskService = new TaskService(currentTasksContainer, mongodbTaskRep, taskInput, taskAddBtn, doneTasksContainer);
 
-taskService.renderCurrentTasks();
-taskService.renderDoneTasks();
-taskService.createAddTaskEvent();
-
-console.log('Fetching...');
-fetch('http://localhost:4000/api/tasks')
-    .then(res => {
-        console.log('Response received:', res);
-        return res.json();
-    })
-    .then(data => console.log('Data:', data))
-    .catch(err => console.error('Error:', err));
+taskService.renderCurrentTasks()
+    .then(()=> taskService.renderDoneTasks())
+    .then(()=> taskService.createAddTaskEvent());
