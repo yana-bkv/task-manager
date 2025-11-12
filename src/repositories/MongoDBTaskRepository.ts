@@ -1,10 +1,10 @@
-import type {MongoDBTaskRepositoryInterface} from './repositoryInterface';
+import type {TaskRepositoryInterface} from './TaskRepositoryInterface';
 import type { Task } from '../models/Task';
 import axios from "axios";
 
 const BASE_URL = `${process.env.API_URL}/api/tasks` || 'http://localhost:4000/api/tasks'
 
-export default class MongoDBTaskRepository implements MongoDBTaskRepositoryInterface {
+export default class MongoDBTaskRepository implements TaskRepositoryInterface {
     async getAll(): Promise<Task[]> {
         const response = await axios.get(BASE_URL)
         return response.data

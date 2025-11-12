@@ -1,6 +1,6 @@
 // import LocalStorageRepository from './repositories/localStorageRepository.js';
 import TaskService from './service/TaskService.js';
-import MongoDBTaskRepository from "./repositories/MongoDBTaskRepository.js";
+import MongoDBTaskRepository from "./repositories/MongoDBTaskRepository";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import LocalStorageRepository from "./repositories/localStorageRepository";
 

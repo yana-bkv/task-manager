@@ -2,7 +2,7 @@ import type {
     MongoDBTaskRepositoryInterface,
 } from '../repositories/repositoryInterface';
 import TaskComponent from '../components/TaskComponent.js';
-import MongoDBTaskRepository from "../repositories/MongoDBTaskRepository.js";
+import MongoDBTaskRepository from "../repositories/MongoDBTaskRepository";
 
 export default class TaskService {
   private currentTasksContainer: HTMLElement | null;
