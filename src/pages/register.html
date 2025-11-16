@@ -14,6 +14,9 @@
 		<div class="mb-3">
 			<label for="registerEmailInput" class="form-label">Email address</label>
 			<input type="email" class="form-control" id="registerEmailInput" aria-describedby="emailHelp">
+			<div id="registerEmailInvalidFeedback" class="invalid-feedback">
+				Email is required
+			</div>
 		</div>
 		<div class="mb-3">
 			<label for="registerNameInput" class="form-label">Name</label>
@@ -22,6 +25,9 @@
 		<div class="mb-3">
 			<label for="registerPasswordInput" class="form-label">Password</label>
 			<input type="password" class="form-control" id="registerPasswordInput">
+			<div id="registerPasswordInvalidFeedback" class="invalid-feedback">
+				Password is required
+			</div>
 		</div>
 		<button type="submit" class="btn btn-primary" id="registerSubmitButton">Submit</button>
 	</form>

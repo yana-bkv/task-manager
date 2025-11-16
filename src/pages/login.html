@@ -14,10 +14,16 @@
 				<div class="mb-3">
 					<label for="loginEmailInput" class="form-label">Email address</label>
 					<input type="email" class="form-control" id="loginEmailInput" aria-describedby="emailHelp">
+					<div id="loginEmailInvalidFeedback" class="invalid-feedback">
+						Email is required
+					</div>
 				</div>
 				<div class="mb-3">
 					<label for="loginPasswordInput" class="form-label">Password</label>
 					<input type="password" class="form-control" id="loginPasswordInput">
+					<div id="loginPasswordInvalidFeedback" class="invalid-feedback">
+						Password is required
+					</div>
 				</div>
 				<button type="submit" class="btn btn-primary" id="loginSubmitButton">Submit</button>
 			</form>

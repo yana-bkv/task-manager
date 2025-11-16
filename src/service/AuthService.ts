@@ -36,6 +36,7 @@ export default class AuthService implements AuthServiceInterface {
             if (user) {
                 this.currentUser = user
                 this.toastService.showSuccess("Successfully registered, " + (user.name || user.email) + "")
+                window.location.href = '/login?fromRegister=true&registerEmail=' + user.email;
             }
         }
         catch (error: {message: string} | Error | unknown) {
