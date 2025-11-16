@@ -12,8 +12,8 @@
     "lint:fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
     "start": "lite-server",
-    "dev": "parcel src/pages/*.html --port 3000",
-    "build": "parcel build src/pages/*.html",
+    "dev": "parcel public/*.html --port 3000",
+    "build": "parcel build public/*.html",
     "dev:old": "concurrently \"npm run watch:ts\" \"npm run watch:sass\" \"lite-server\""
   },
   "husky": {
